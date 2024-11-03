@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Nota Final - Universidad de La Guajira</title>
+    <style>
+        /* Estilos de fondo */
+        body {
+            background: linear-gradient(135deg, rgba(255, 228, 179, 0.8), rgba(255, 183, 77, 0.8)), url('https://source.unsplash.com/1600x900/?abstract,blur');
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Contenedor principal */
+        .container {
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #FF5722;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+
+        label {
+            color: #37474F;
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 1em;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #BDBDBD;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #FF5722;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #E64A19;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #D84315;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Nota Final</h1>
+        
+        <!-- Entrada de notas -->
+        <label for="nota1">Nota 1er Corte (30%):</label>
+        <input type="number" id="nota1" placeholder="Ej: 3.5" min="0" max="5" step="0.1">
+        
+        <label for="nota2">Nota 2do Corte (35%):</label>
+        <input type="number" id="nota2" placeholder="Ej: 4.0" min="0" max="5" step="0.1">
+        
+        <!-- Botón de cálculo -->
+        <button onclick="calcularNotaNecesaria()">Calcular</button>
+        
+        <!-- Resultado -->
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularNotaNecesaria() {
+            const nota1 = parseFloat(document.getElementById('nota1').value) || 0;
+            const nota2 = parseFloat(document.getElementById('nota2').value) || 0;
+
+            // Porcentajes fijos
+            const porcentaje1 = 0.3;
+            const porcentaje2 = 0.35;
+            const porcentaje3 = 0.35;
+            
+            // Cálculo de la nota necesaria en el tercer corte
+            const resultado = ((3 - (nota1 * porcentaje1 + nota2 * porcentaje2)) / porcentaje3);
+
+            // Mostrar el resultado con validación
+            if (resultado <= 5) {
+                document.getElementById('resultado').innerText = 
+                    'Necesitas sacar al menos: ' + resultado.toFixed(2) + ' en el tercer corte para aprobar con 3.0';
+            } else {
+                document.getElementById('resultado').innerText = 
+                    'No es posible alcanzar una nota final de 3.0 con estas notas en los dos primeros cortes.';
+            }
+        }
+    </script>
+</body>
+</html>
